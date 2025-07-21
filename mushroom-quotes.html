@@ -1,113 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Mushroom Motivation Widget</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: transparent;
-            text-align: center;
-            color: #333;
-            padding: 15px;
-            margin: 0;
-        }
+  <meta charset="UTF-8">
+  <title>Mushroom Motivation Widget</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: transparent;
+      text-align: center;
+      color: #a77956;
+      padding: 15px;
+      margin: 0;
+    }
 
-        .widget {
-            width: 90%;
-            max-width: 400px;
-            margin: auto;
-        }
+    .quote {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
 
-        .quote {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            color: #a77956;
-        }
+    button {
+      background-color: #a77956;
+      border: none;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
 
-        button {
-            background-color: #a77956;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        button:hover {
-            background-color: #8c613f;
-        }
-    </style>
+    button:hover {
+      background-color: #8c613f;
+    }
+  </style>
 </head>
 <body>
-    <div class="widget">
-        <div class="quote" id="quote">Loading...</div>
-        <button onclick="showRandomQuote()">New Quote 🍄</button>
-    </div>
+  <div class="quote" id="quote">Loading...</div>
+  <button onclick="showRandomQuote()">New Quote 🍄</button>
 
-    <script>
-        const quotes = [
-            "Grow through what you go through, just like fungi through the forest.",
-            "Even mushrooms start small—trust your growth.",
-            "Stay grounded, but don't be afraid to mushroom into something amazing.",
-            "Be patient—like a morel, greatness can’t be rushed.",
-            "Every day is a good day to forage new possibilities.",
-            "Life is like foraging: the best finds appear when you least expect them.",
-            "You’re a fungi—never forget how spore-tacular you are!",
-            "Keep your eyes peeled—the best opportunities hide like chanterelles.",
-            "The forest rewards those who wander off the beaten path.",
-            "Not all who forage are lost; some just find their way differently.",
-            "Even the rarest mushrooms show up when the conditions are right. Your moment is coming.",
-            "When life gets tough, remember: you’re resilient as reishi.",
-            "Breathe deep, forage slow, and let nature guide your next step.",
-            "Find your calm beneath the mushroom caps and leafy canopies.",
-            "Like mushrooms, thrive even where others see decay.",
-            "You can’t rush a mushroom—allow yourself space and time to grow.",
-            "Sometimes the best finds appear only after the rain. Embrace life’s storms.",
-            "In darkness, mushrooms find their purpose—so can you.",
-            "You’re the mycelium connecting all your dreams.",
-            "Every mushroom was once just potential underground. Trust your journey.",
-            "Magic isn’t only in fairy rings; it’s also in your everyday wins.",
-            "Illuminate your path like bioluminescent fungi in a dark forest.",
-            "Rest is not idleness. It’s photosynthesis.",
-            "You’re allowed to bloom slowly. The forest isn’t in a rush, and neither are you.",
-            "Even the moon goes through phases. You're allowed to, too.",
-            "You are not behind. You are becoming.",
-            "Like the tide, your energy will return.",
-            "It’s okay to go quiet for a season. Seeds do, too.",
-            "Growth can be invisible before it’s undeniable.",
-            "You're not lazy, you're just recharging like the Earth in winter.",
-            "You are stardust and shadow—both are worthy.",
-            "Trust your inner compass. It remembers paths you've never walked.",
-            "Even the most magical spells begin with intention.",
-            "You don’t have to be the sun. Sometimes it’s enough to be a warm flame.",
-            "You are allowed to be soft and strong. The willow is both.",
-            "Honor your cycles. You're not a machine—you're a moonlit ritual in motion.",
-            "You don’t have to earn rest.",
-            "Soft days are still sacred.",
-            "If all you did today was survive, I’m proud of you.",
-            "Some days, your only job is to breathe and be.",
-            "Tend to yourself like a favorite plant—gently, consistently, with love.",
-            "Tea first. Chaos later.",
-            "In case no one told you today: I love you, I’m proud of you, and I’m rooting for you.",
-            "You don’t have to be perfect to be deeply loved. You already are.",
-            "Even on quiet days, I’m in your corner—tea in hand, heart wide open.",
-            "You are the best kind of magic: steady, soft, and starlit.",
-            "I hope you feel how much I believe in you, even in the in-between moments.",
-            "You don’t have to do anything for me to be grateful you exist.",
-            "I see how hard you’re trying, and I love you more for it.",
-            "Even on your most tangled days, you are worthy of softness, love, and light.",
-            "Somewhere in the universe, a version of me is picking flowers for you right now.",
-            "There’s nothing stronger than the way I believe in you."
-        ];
+  <script>
+    const quotes = [
+      "Grow through what you go through, just like fungi through the forest.",
+      "Even mushrooms start small—trust your growth.",
+      "Stay grounded, but don't be afraid to mushroom into something amazing.",
+      "Be patient—like a morel, greatness can’t be rushed.",
+      "Every day is a good day to forage new possibilities.",
+      "Life is like foraging: the best finds appear when you least expect them.",
+      "You’re a fungi—never forget how spore-tacular you are!",
+      "Keep your eyes peeled—the best opportunities hide like chanterelles.",
+      "The forest rewards those who wander off the beaten path.",
+      "Not all who forage are lost; some just find their way differently.",
+      "Even the rarest mushrooms show up when the conditions are right. Your moment is coming.",
+      "When life gets tough, remember: you’re resilient as reishi.",
+      "Breathe deep, forage slow, and let nature guide your next step.",
+      "Find your calm beneath the mushroom caps and leafy canopies.",
+      "Like mushrooms, thrive even where others see decay.",
+      "You can’t rush a mushroom—allow yourself space and time to grow.",
+      "Sometimes the best finds appear only after the rain. Embrace life’s storms.",
+      "In darkness, mushrooms find their purpose—so can you.",
+      "You’re the mycelium connecting all your dreams.",
+      "Every mushroom was once just potential underground. Trust your journey.",
+      "Magic isn’t only in fairy rings; it’s also in your everyday wins.",
+      "Illuminate your path like bioluminescent fungi in a dark forest.",
+      "Rest is not idleness. It’s photosynthesis.",
+      "You’re allowed to bloom slowly. The forest isn’t in a rush, and neither are you.",
+      "Even the moon goes through phases. You're allowed to, too.",
+      "You are not behind. You are becoming.",
+      "Like the tide, your energy will return.",
+      "It’s okay to go quiet for a season. Seeds do, too.",
+      "Growth can be invisible before it’s undeniable.",
+      "You're not lazy, you're just recharging like the Earth in winter.",
+      "You are stardust and shadow—both are worthy.",
+      "Trust your inner compass. It remembers paths you've never walked.",
+      "Even the most magical spells begin with intention.",
+      "You don’t have to be the sun. Sometimes it’s enough to be a warm flame.",
+      "You are allowed to be soft and strong. The willow is both.",
+      "Honor your cycles. You're not a machine—you're a moonlit ritual in motion.",
+      "You don’t have to earn rest.",
+      "Soft days are still sacred.",
+      "If all you did today was survive, I’m proud of you.",
+      "Some days, your only job is to breathe and be.",
+      "Tend to yourself like a favorite plant—gently, consistently, with love.",
+      "Tea first. Chaos later.",
+      "In case no one told you today: I love you, I’m proud of you, and I’m rooting for you.",
+      "You don’t have to be perfect to be deeply loved. You already are.",
+      "Even on quiet days, I’m in your corner—tea in hand, heart wide open.",
+      "You are the best kind of magic: steady, soft, and starlit.",
+      "I hope you feel how much I believe in you, even in the in-between moments.",
+      "You don’t have to do anything for me to be grateful you exist.",
+      "I see how hard you’re trying, and I love you more for it.",
+      "Even on your most tangled days, you are worthy of softness, love, and light.",
+      "Somewhere in the universe, a version of me is picking flowers for you right now.",
+      "There’s nothing stronger than the way I believe in you."
+    ];
 
-        function showRandomQuote() {
-            const quote = quotes[Math.floor(Math.random() * quotes.length)];
-            document.getElementById('quote').innerText = quote;
-        }
+    function showRandomQuote() {
+      const quote = quotes[Math.floor(Math.random() * quotes.length)];
+      document.getElementById('quote').innerText = quote;
+    }
 
-        document.addEventListener('DOMContentLoaded', showRandomQuote);
-    </script>
+    document.addEventListener('DOMContentLoaded', showRandomQuote);
+  </script>
 </body>
 </html>
