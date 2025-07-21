@@ -1,86 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Pomodoro Timer</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: transparent;
-            text-align: center;
-            color: #333;
-            padding: 15px;
-            margin: 0;
-        }
-        .timer {
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
-        button {
-            background-color: #a77956;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            margin: 5px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-        button:hover {
-            background-color: #8c613f;
-        }
-        .controls {
-            margin-top: 10px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>Pomodoro Timer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: transparent;
+      color: #a77956;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: inline-block;
+      padding: 0;
+    }
+
+    .timer {
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 0 0 10px 0;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 0;
+    }
+
+    button {
+      background-color: #a77956;
+      border: none;
+      color: white;
+      padding: 6px 14px;
+      font-size: 0.9rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #8c613f;
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
     <div class="timer" id="timer">25:00</div>
     <div class="controls">
-        <button onclick="startTimer()">Start</button>
-        <button onclick="pauseTimer()">Pause</button>
-        <button onclick="resetTimer()">Reset</button>
+      <button onclick="startTimer()">Start</button>
+      <button onclick="pauseTimer()">Pause</button>
+      <button onclick="resetTimer()">Reset</button>
     </div>
+  </div>
 
-    <script>
-        let pomodoroDuration = 25 * 60; // 25 minutes
-        let remainingTime = pomodoroDuration;
-        let timerInterval = null;
+  <script>
+    let timer;
+    let minutes = 25;
+    let seconds = 0;
+    let running = false;
 
-        function updateTimerDisplay() {
-            let minutes = Math.floor(remainingTime / 60);
-            let seconds = remainingTime % 60;
-            document.getElementById('timer').innerText =
-                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }
+    function updateDisplay() {
+      const minStr = minutes.toString().padStart(2, '0');
+      const secStr = seconds.toString().padStart(2, '0');
+      document.getElementById('timer').textContent = `${minStr}:${secStr}`;
+    }
 
-        function startTimer() {
-            if (timerInterval) return; // Prevent multiple intervals
-            timerInterval = setInterval(() => {
-                if (remainingTime > 0) {
-                    remainingTime--;
-                    updateTimerDisplay();
-                } else {
-                    clearInterval(timerInterval);
-                    timerInterval = null;
-                    alert("Time's up! Take a break 🍅");
-                }
-            }, 1000);
-        }
+    function tick() {
+      if (minutes === 0 && seconds === 0) {
+        clearInterval(timer);
+        running = false;
+        return;
+      }
+      if (seconds === 0) {
+        minutes--;
+        seconds = 59;
+      } else {
+        seconds--;
+      }
+      updateDisplay();
+    }
 
-        function pauseTimer() {
-            clearInterval(timerInterval);
-            timerInterval = null;
-        }
+    function startTimer() {
+      if (!running) {
+        timer = setInterval(tick, 1000);
+        running = true;
+      }
+    }
 
-        function resetTimer() {
-            pauseTimer();
-            remainingTime = pomodoroDuration;
-            updateTimerDisplay();
-        }
+    function pauseTimer() {
+      clearInterval(timer);
+      running = false;
+    }
 
-        // Initialize the timer display on load
-        updateTimerDisplay();
-    </script>
+    function resetTimer() {
+      clearInterval(timer);
+      running = false;
+      minutes = 25;
+      seconds = 0;
+      updateDisplay();
+    }
+
+    updateDisplay();
+  </script>
 </body>
 </html>
