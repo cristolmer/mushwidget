@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mushroom Motivation Widget</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: transparent;
+            text-align: center;
+            color: #3c3c3c;
+            padding: 10px;
+            margin: 0;
+        }
+        .widget {
+            border-radius: 12px;
+            padding: 15px;
+            background: #f5f3f0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 400px;
+            margin: auto;
+        }
+        .quote {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #a77956;
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        button:hover {
+            background-color: #8c613f;
+        }
+    </style>
+</head>
+<body>
+    <div class="widget">
+        <div class="quote" id="quote">Loading...</div>
+        <button onclick="showRandomQuote()">New Quote 🍄</button>
+    </div>
+
+    <script>
+        const quotes = [
+            "Grow through what you go through, just like fungi through the forest.",
+            "Even mushrooms start small—trust your growth.",
+            "Stay grounded, but don't be afraid to mushroom into something amazing.",
+            "Be patient—like a morel, greatness can’t be rushed.",
+            "Every day is a good day to forage new possibilities.",
+            "Life is like foraging: the best finds appear when you least expect them.",
+            "You’re a fungi—never forget how spore-tacular you are!",
+            "Keep your eyes peeled—the best opportunities hide like chanterelles.",
+            "The forest rewards those who wander off the beaten path.",
+            "Not all who forage are lost; some just find their way differently.",
+            "Even the rarest mushrooms show up when the conditions are right. Your moment is coming.",
+            "When life gets tough, remember: you’re resilient as reishi.",
+            "Breathe deep, forage slow, and let nature guide your next step.",
+            "Find your calm beneath the mushroom caps and leafy canopies.",
+            "Like mushrooms, thrive even where others see decay.",
+            "You can’t rush a mushroom—allow yourself space and time to grow.",
+            "Sometimes the best finds appear only after the rain. Embrace life’s storms.",
+            "In darkness, mushrooms find their purpose—so can you.",
+            "You’re the mycelium connecting all your dreams.",
+            "Every mushroom was once just potential underground. Trust your journey.",
+            "Magic isn’t only in fairy rings; it’s also in your everyday wins.",
+            "Illuminate your path like bioluminescent fungi in a dark forest."
+        ];
+
+        function showRandomQuote() {
+            const quote = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('quote').innerText = quote;
+        }
+
+        // Load quote when page opens
+        document.addEventListener('DOMContentLoaded', showRandomQuote);
+    </script>
+</body>
+</html>
