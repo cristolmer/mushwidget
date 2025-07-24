@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>iNaturalist Feed</title>
+  <style>
+    body {
+      background-color: transparent;
+      font-family: 'Arial', sans-serif;
+      color: #c89f84;
+      padding: 10px;
+      margin: 0;
+    }
+    .feed {
+      max-width: 400px;
+      margin: auto;
+    }
+    .observation {
+      border-bottom: 1px solid #6b4f3b;
+      padding: 10px 0;
+    }
+    .observation a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+    }
+    .observation img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-right: 12px;
+    }
+    .info {
+      flex-grow: 1;
+    }
+    .species {
+      font-weight: bold;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+    .date {
+      font-size: 0.85rem;
+      color: #e1c4ac;
+    }
+  </style>
+</head>
+<body>
+  <div class="feed" id="feed">Loading...</div>
+
+  <script>
+    const API_URL = "https://api.inaturalist.org/v1/observations?place_id=51&taxon_id=47170&order_by=observed_on&order=desc&per_page=10";
+
+    async function loadObservations() {
+      const res = await fetch(API_URL);
+      const data = await res.json();
+      const feed = document.getElementById("feed");
+      feed.innerHTML = "";
+
+      data.results.forEach(obs => {
+        const photoUrl = obs.photos[0]?.url?.replace("square", "medium") || "";
+        const title = obs.taxon?.preferred_common_name || obs.taxon?.name || obs.species_guess || "Unknown Observation";
+        const date = new Date(obs.observed_on).toLocaleDateString(undefined, {
+          year: "numeric", month: "short", day: "numeric"
+        });
+        const obsUrl = `https://www.inaturalist.org/observations/${obs.id}`;
+
+        const item = document.createElement("div");
+        item.className = "observation";
+        item.innerHTML = `
+          <a href="${obsUrl}" target="_blank">
+            ${photoUrl ? `<img src="${photoUrl}" alt="${title}">` : ""}
+            <div class="info">
+              <div class="species">${title}</div>
+              <div class="date">Seen on ${date}</div>
+            </div>
+          </a>
+        `;
+        feed.appendChild(item);
+      });
+    }
+
+    loadObservations();
+  </script>
+</body>
+</html>
