@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>iNaturalist Feed</title>
+  <title>iNaturalist Feed with Maps</title>
   <style>
     body {
       background-color: transparent;
@@ -21,11 +21,16 @@
     }
     .observation a {
       display: flex;
-      align-items: center;
+      flex-direction: column;
       text-decoration: none;
       color: inherit;
     }
-    .observation img {
+    .row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .observation img.photo {
       width: 80px;
       height: 80px;
       object-fit: cover;
@@ -43,6 +48,11 @@
     .date {
       font-size: 0.85rem;
       color: #e1c4ac;
+    }
+    .map {
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
     }
   </style>
 </head>
@@ -65,16 +75,24 @@
           year: "numeric", month: "short", day: "numeric"
         });
         const obsUrl = `https://www.inaturalist.org/observations/${obs.id}`;
+        const lat = obs.geojson?.coordinates?.[1];
+        const lon = obs.geojson?.coordinates?.[0];
+        const mapUrl = (lat && lon)
+          ? `https://static-maps.yandex.ru/1.x/?lang=en_US&ll=${lon},${lat}&z=10&size=400,100&l=map&pt=${lon},${lat},pm2rdm`
+          : "";
 
         const item = document.createElement("div");
         item.className = "observation";
         item.innerHTML = `
           <a href="${obsUrl}" target="_blank">
-            ${photoUrl ? `<img src="${photoUrl}" alt="${title}">` : ""}
-            <div class="info">
-              <div class="species">${title}</div>
-              <div class="date">Seen on ${date}</div>
+            <div class="row">
+              ${photoUrl ? `<img src="${photoUrl}" class="photo" alt="${title}">` : ""}
+              <div class="info">
+                <div class="species">${title}</div>
+                <div class="date">Seen on ${date}</div>
+              </div>
             </div>
+            ${mapUrl ? `<img src="${mapUrl}" class="map" alt="Map for ${title}">` : ""}
           </a>
         `;
         feed.appendChild(item);
